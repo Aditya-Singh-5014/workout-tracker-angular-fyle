@@ -65,3 +65,57 @@ button:hover {
     margin-bottom: 10px;
   }
 }
+
+/* Ensure consistent styling for mat-form-field and mat-select */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+  display: block;
+}
+
+mat-select {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  mat-form-field {
+    margin-bottom: 10px;
+  }
+}
+
+/* Additional styling to ensure proper positioning */
+.mat-form-field-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-form-field-infix {
+  width: 100%;
+}
+
+/* Specific styles for dropdown panel to ensure it opens correctly */
+.mat-select-panel {
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative; /* Ensure the dropdown is positioned relative to its parent */
+}
+
+.mat-select-trigger {
+  display: flex;
+  align-items: center;
+}
+
+/* Ensure dropdown content is not cut off and is positioned correctly */
+.mat-select-content {
+  display: block;
+  position: absolute;
+  z-index: 1000;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
