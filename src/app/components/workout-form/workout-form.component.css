@@ -3,3 +3,9 @@ mat-form-field {
   width: 100%;
   margin-bottom: 16px;
 }
+
+@media (max-width: 768px) {
+  mat-form-field {
+    margin-bottom: 10px;
+  }
+}
