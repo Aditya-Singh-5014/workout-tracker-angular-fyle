@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+  <span>Workout Tracker</span>
+  <span class="spacer"></span>
+  <button
+    mat-button
+    [routerLink]="['/user-form']"
+    routerLinkActive="active-link"
+  >
+    User Form
+  </button>
+  <button
+    mat-button
+    [routerLink]="['/workout-form']"
+    routerLinkActive="active-link"
+  >
+    Workout Form
+  </button>
+  <button
+    mat-button
+    [routerLink]="['/workout-table']"
+    routerLinkActive="active-link"
+  >
+    Workout Table
+  </button>
+  <button
+    mat-button
+    [routerLink]="['/workout-chart']"
+    routerLinkActive="active-link"
+  >
+    Workout Chart
+  </button>
+</mat-toolbar>
+
+<div class="content" [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>

@@ -1,0 +1,63 @@
+<mat-card>
+  <div class="search-filter-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchTerm"
+        (ngModelChange)="applyFilter()"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Filter by Workout Type</mat-label>
+      <mat-select
+        [(ngModel)]="selectedWorkoutType"
+        (selectionChange)="applyFilter()"
+      >
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let type of workoutTypes" [value]="type">{{
+          type
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="userName">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let workout">{{ workout.userName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="workouts">
+      <th mat-header-cell *matHeaderCellDef>Workouts</th>
+      <td mat-cell *matCellDef="let workout">{{ workout.type }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="numberOfWorkouts">
+      <th mat-header-cell *matHeaderCellDef>Number of Workouts</th>
+      <td mat-cell *matCellDef="let workout">1</td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalWorkoutMinutes">
+      <th mat-header-cell *matHeaderCellDef>Total Workout Minutes</th>
+      <td mat-cell *matCellDef="let workout">{{ workout.duration }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [length]="totalWorkouts"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="handlePageEvent($event)"
+  >
+  </mat-paginator>
+
+  <div class="button-container">
+    <button mat-raised-button color="primary" (click)="goToChart()">
+      Go to Chart
+    </button>
+  </div>
+</mat-card>
