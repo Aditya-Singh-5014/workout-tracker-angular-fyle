@@ -77,12 +77,6 @@ mat-select {
   width: 100%;
 }
 
-@media (max-width: 768px) {
-  mat-form-field {
-    margin-bottom: 10px;
-  }
-}
-
 /* Additional styling to ensure proper positioning */
 .mat-form-field-wrapper {
   display: flex;
@@ -98,11 +92,12 @@ mat-select {
   width: 100%;
 }
 
-/* Specific styles for dropdown panel to ensure it opens correctly */
 .mat-select-panel {
   margin-top: 0;
   margin-bottom: 0;
-  position: relative; /* Ensure the dropdown is positioned relative to its parent */
+  position: absolute;
+  z-index: 1000; /* Ensure dropdown is above other elements */
+  left: 0; /* Ensure dropdown aligns with the left edge */
 }
 
 .mat-select-trigger {
@@ -118,4 +113,16 @@ mat-select {
   top: 100%;
   left: 0;
   width: 100%;
+}
+
+.mat-select-panel {
+  left: auto !important; /* Ensure the dropdown is correctly aligned */
+  right: 0 !important;
+  width: 100% !important;
+}
+
+@media (max-width: 768px) {
+  mat-form-field {
+    margin-bottom: 10px;
+  }
 }
