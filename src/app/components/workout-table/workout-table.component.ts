@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { Workout } from '../../models/workout.model';
@@ -10,16 +10,17 @@ import { Workout } from '../../models/workout.model';
   templateUrl: './workout-table.component.html',
   styleUrls: ['./workout-table.component.css']
 })
-export class WorkoutTableComponent implements OnInit {
+export class WorkoutTableComponent implements OnInit, AfterViewInit {
   searchTerm: string = '';
   selectedWorkoutType: string = '';
   workoutTypes: string[] = [];
   displayedColumns: string[] = ['userName', 'workouts', 'numberOfWorkouts', 'totalWorkoutMinutes'];
   dataSource = new MatTableDataSource<Workout>([]);
   pageSize: number = 5;
-  pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 5 };
   totalWorkouts: number = 0;
   originalData: Workout[] = []; // To store original data
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private dataService: DataService, private router: Router) {}
 
@@ -31,6 +32,10 @@ export class WorkoutTableComponent implements OnInit {
       this.populateWorkoutTypes(workouts);
       this.applyFilter();
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   populateWorkoutTypes(workouts: Workout[]) {
@@ -52,12 +57,12 @@ export class WorkoutTableComponent implements OnInit {
     }
 
     this.dataSource.data = filteredData;
-    this.totalWorkouts = filteredData.length;
+    this.dataSource.paginator = this.paginator; // Ensure paginator is updated
   }
 
   handlePageEvent(event: PageEvent) {
     this.pageSize = event.pageSize;
-    this.pageEvent = event;
+    this.paginator.pageIndex = event.pageIndex;
     this.applyFilter();
   }
 
